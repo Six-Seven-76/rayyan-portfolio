@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rayyan Amayuri — Portfolio</title>
+    <meta name="description" content="Portfolio pribadi Rayyan Amayuri — Siswa PPLG, Web Developer, dan UI/UX Learner. Membangun website yang rapi, fungsional, dan terus berkembang.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        bgDark: '#0A0A0A',
+                        secondaryDark: '#111111',
+                        surfaceDark: '#151515',
+                        textPrimary: '#F5F5F5',
+                        textSecondary: '#A1A1AA',
+                        textMuted: '#71717A',
+                        borderDark: '#27272A',
+                        accent: '#7AA7FF',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Base Styling & Custom Utilities */
+        body {
+            background-color: #0A0A0A;
+            color: #F5F5F5;
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* Fine Technical Grid Lines Background */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(39, 39, 42, 0.25) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(39, 39, 42, 0.25) 1px, transparent 1px);
+        }
+
+        /* Smooth Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0A0A0A;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3F3F46;
+        }
+
+        /* Custom Focus Ring for Accessibility */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #7AA7FF;
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+<body class="bg-bgDark text-textPrimary selection:bg-accent/20 selection:text-accent flex flex-col min-h-screen relative">
+
+    <!-- NAVBAR -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 backdrop-blur-md bg-bgDark/80 border-b border-borderDark/60">
+        <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+            <!-- Brand Name -->
+            <a href="#" class="text-sm font-semibold tracking-tight text-textPrimary hover:text-accent transition-colors duration-200" aria-label="Rayyan Amayuri Home">
+                Rayyan Amayuri
+            </a>
+
+            <!-- Desktop Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-xs font-medium text-textSecondary" aria-label="Navigasi Utama">
+                <a href="#proyek" class="hover:text-textPrimary transition-colors duration-200">Proyek</a>
+                <a href="#tentang" class="hover:text-textPrimary transition-colors duration-200">Tentang</a>
+                <a href="#perjalanan" class="hover:text-textPrimary transition-colors duration-200">Perjalanan</a>
+                <a href="#kontak" class="hover:text-textPrimary transition-colors duration-200">Kontak</a>
+            </nav>
+
+            <!-- Navbar CTA Button (Desktop) -->
+            <div class="hidden md:flex items-center">
+                <a href="#kontak" class="inline-flex items-center justify-center text-xs font-medium px-4 py-2 rounded-md bg-surfaceDark text-textPrimary border border-borderDark hover:border-accent/50 hover:bg-secondaryDark transition-all duration-200">
+                    Hubungi Saya
+                </a>
+            </div>
+
+            <!-- Mobile Hamburger Button -->
+            <button id="menu-toggle" type="button" class="md:hidden p-2 rounded-md text-textSecondary hover:text-textPrimary hover:bg-surfaceDark transition-colors" aria-label="Buka menu navigasi" aria-expanded="false" aria-controls="mobile-menu">
+                <svg id="menu-icon-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+                <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-secondaryDark/95 border-b border-borderDark px-6 py-6 transition-all duration-300">
+            <nav class="flex flex-col space-y-4 text-sm font-medium text-textSecondary" aria-label="Navigasi Mobile">
+                <a href="#proyek" class="mobile-link hover:text-textPrimary transition-colors py-1">Proyek</a>
+                <a href="#tentang" class="mobile-link hover:text-textPrimary transition-colors py-1">Tentang</a>
+                <a href="#perjalanan" class="mobile-link hover:text-textPrimary transition-colors py-1">Perjalanan</a>
+                <a href="#kontak" class="mobile-link hover:text-textPrimary transition-colors py-1">Kontak</a>
+                <div class="pt-2 border-t border-borderDark">
+                    <a href="#kontak" class="mobile-link inline-block w-full text-center text-xs font-medium px-4 py-2.5 rounded-md bg-surfaceDark text-textPrimary border border-borderDark hover:border-accent/50 transition-colors">
+                        Hubungi Saya
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main class="flex-grow pt-24">
+
+        <!-- HERO SECTION -->
+        <section class="relative min-h-[85vh] flex items-center justify-center py-16 px-6 overflow-hidden border-b border-borderDark/40">
+            <!-- Subtle Grid Background Overlay -->
+            <div class="absolute inset-0 bg-grid opacity-60 pointer-events-none"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bgDark/50 to-bgDark pointer-events-none"></div>
+
+            <div class="max-w-4xl mx-auto w-full relative z-10 space-y-8">
+                
+                <!-- Tiny Technical Metadata Label -->
+                <div class="reveal inline-flex items-center space-x-3 text-[11px] font-mono text-textMuted bg-surfaceDark/80 border border-borderDark px-3 py-1.5 rounded-full backdrop-blur-sm">
+                    <span class="inline-block w-2 h-2 rounded-full bg-accent/80 animate-pulse"></span>
+                    <span>Purwokerto, Indonesia</span>
+                    <span class="text-borderDark">•</span>
+                    <span>PPLG Student</span>
+                    <span class="text-borderDark">•</span>
+                    <span>2026</span>
+                </div>
+
+                <!-- Main Identity & Heading -->
+                <div class="space-y-4 reveal">
+                    <div class="space-y-1">
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-textPrimary leading-tight">
+                            Rayyan Amayuri
+                        </h1>
+                        <p class="text-sm sm:text-base font-mono text-accent">
+                            PPLG Student · Web Developer · UI/UX Learner
+                        </p>
+                    </div>
+
+                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-medium text-textPrimary/90 leading-snug max-w-3xl pt-2">
+                        "Saya membangun website yang rapi, fungsional, dan terus saya kembangkan."
+                    </h2>
+
+                    <p class="text-sm sm:text-base text-textSecondary max-w-2xl leading-relaxed pt-1">
+                        Saya sedang mendalami web development, UI/UX, dan teknologi digital melalui project, eksperimen, dan proses belajar langsung.
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="pt-4 flex flex-wrap items-center gap-4 reveal">
+                    <a href="#proyek" class="inline-flex items-center justify-center text-xs font-medium px-5 py-3 rounded-md bg-textPrimary text-bgDark hover:bg-white hover:shadow-[0_0_20px_rgba(122,167,255,0.2)] transition-all duration-200">
+                        Lihat Pekerjaan Saya
+                        <svg class="w-3.5 h-3.5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+                        </svg>
+                    </a>
+                    <a href="#tentang" class="inline-flex items-center justify-center text-xs font-medium px-5 py-3 rounded-md bg-surfaceDark text-textPrimary border border-borderDark hover:border-textMuted hover:bg-secondaryDark transition-all duration-200">
+                        Tentang Saya
+                    </a>
+                </div>
+
+                <!-- Subtle Code Detail Accent -->
+                <div class="pt-8 text-[11px] font-mono text-textMuted/60 flex items-center space-x-4 reveal">
+                    <span>&lt;status&gt; learning_by_building &lt;/status&gt;</span>
+                    <span class="w-8 h-[1px] bg-borderDark"></span>
+                    <span>v2.6</span>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- PROJECT SECTION -->
+        <section id="proyek" class="py-24 px-6 border-b border-borderDark/40">
+            <div class="max-w-5xl mx-auto space-y-16">
+                
+                <!-- Section Header -->
+                <div class="space-y-3 reveal">
+                    <div class="inline-flex items-center space-x-2 text-xs font-mono text-accent">
+                        <span>// 01</span>
+                        <span>PROYEK</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-textPrimary">
+                        Pekerjaan
+                    </h2>
+                    <p class="text-sm sm:text-base text-textSecondary">
+                        Beberapa project yang saya buat, eksperimen, dan pelajari.
+                    </p>
+                </div>
+
+                <!-- Projects Editorial List -->
+                <div class="space-y-20">
+
+                    <!-- PROJECT 01 -->
+                    <article class="reveal group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-secondaryDark/40 border border-borderDark p-6 sm:p-8 rounded-xl hover:border-borderDark/80 transition-all duration-300">
+                        <!-- Preview Image / Visual -->
+                        <div class="lg:col-span-7 overflow-hidden rounded-lg border border-borderDark bg-surfaceDark relative aspect-video">
+                            <img src="assets/portfolio.jpg" alt="Personal Portfolio Website Preview" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-surfaceDark text-textMuted font-mono text-xs p-6 text-center\'>Personal Portfolio Website Preview</div>';">
+                        </div>
+
+                        <!-- Content Details -->
+                        <div class="lg:col-span-5 space-y-5">
+                            <span class="text-xs font-mono text-textMuted">PROJECT 01</span>
+                            
+                            <h3 class="text-xl sm:text-2xl font-semibold text-textPrimary tracking-tight">
+                                Personal Portfolio Website
+                            </h3>
+
+                            <p class="text-sm text-textSecondary leading-relaxed">
+                                Website portfolio pribadi untuk menampilkan profil, kemampuan, dan project dalam satu halaman yang responsif.
+                            </p>
+
+                            <!-- Tech Stack Tags -->
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">HTML</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">Tailwind CSS</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">JavaScript</span>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="pt-4 flex items-center space-x-5 text-xs font-medium">
+                                <!-- Ganti href="#" dengan link live project jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-accent hover:underline group/link">
+                                    View Project
+                                    <svg class="w-3.5 h-3.5 ml-1 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </a>
+                                <!-- Ganti href="#" dengan link repository GitHub jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-textSecondary hover:text-textPrimary transition-colors">
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 02 (Alternating Layout) -->
+                    <article class="reveal group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-secondaryDark/40 border border-borderDark p-6 sm:p-8 rounded-xl hover:border-borderDark/80 transition-all duration-300">
+                        <!-- Content Details (Order switched on desktop for alternating effect) -->
+                        <div class="lg:col-span-5 space-y-5 order-2 lg:order-1">
+                            <span class="text-xs font-mono text-textMuted">PROJECT 02</span>
+                            
+                            <h3 class="text-xl sm:text-2xl font-semibold text-textPrimary tracking-tight">
+                                Login Page
+                            </h3>
+
+                            <p class="text-sm text-textSecondary leading-relaxed">
+                                Halaman login sederhana yang saya gunakan untuk mempelajari struktur HTML, styling, layout, dan interaksi dasar menggunakan JavaScript.
+                            </p>
+
+                            <!-- Tech Stack Tags -->
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">HTML</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">CSS</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">JavaScript</span>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="pt-4 flex items-center space-x-5 text-xs font-medium">
+                                <!-- Ganti href="#" dengan link live project jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-accent hover:underline group/link">
+                                    View Project
+                                    <svg class="w-3.5 h-3.5 ml-1 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </a>
+                                <!-- Ganti href="#" dengan link repository GitHub jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-textSecondary hover:text-textPrimary transition-colors">
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Preview Image / Visual -->
+                        <div class="lg:col-span-7 overflow-hidden rounded-lg border border-borderDark bg-surfaceDark relative aspect-video order-1 lg:order-2">
+                            <img src="assets/login.jpg" alt="Login Page Preview" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-surfaceDark text-textMuted font-mono text-xs p-6 text-center\'>Login Page Preview</div>';">
+                        </div>
+                    </article>
+
+                    <!-- PROJECT 03 -->
+                    <article class="reveal group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-secondaryDark/40 border border-borderDark p-6 sm:p-8 rounded-xl hover:border-borderDark/80 transition-all duration-300">
+                        <!-- Preview Image / Visual -->
+                        <div class="lg:col-span-7 overflow-hidden rounded-lg border border-borderDark bg-surfaceDark relative aspect-video">
+                            <img src="assets/school.jpg" alt="School Website Concept Preview" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full flex items-center justify-center bg-surfaceDark text-textMuted font-mono text-xs p-6 text-center\'>School Website Concept Preview</div>';">
+                        </div>
+
+                        <!-- Content Details -->
+                        <div class="lg:col-span-5 space-y-5">
+                            <span class="text-xs font-mono text-textMuted">PROJECT 03</span>
+                            
+                            <h3 class="text-xl sm:text-2xl font-semibold text-textPrimary tracking-tight">
+                                School Website Concept
+                            </h3>
+
+                            <p class="text-sm text-textSecondary leading-relaxed">
+                                Konsep website sekolah dengan fokus pada struktur informasi, visual hierarchy, responsive layout, dan pengalaman pengguna.
+                            </p>
+
+                            <!-- Tech Stack Tags -->
+                            <div class="flex flex-wrap gap-2 pt-1">
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">HTML</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">CSS</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">JavaScript</span>
+                                <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-surfaceDark text-textSecondary border border-borderDark">UI/UX</span>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="pt-4 flex items-center space-x-5 text-xs font-medium">
+                                <!-- Ganti href="#" dengan link live project jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-accent hover:underline group/link">
+                                    View Project
+                                    <svg class="w-3.5 h-3.5 ml-1 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                                    </svg>
+                                </a>
+                                <!-- Ganti href="#" dengan link repository GitHub jika sudah tersedia -->
+                                <a href="#" class="inline-flex items-center text-textSecondary hover:text-textPrimary transition-colors">
+                                    GitHub
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ABOUT SECTION -->
+        <section id="tentang" class="py-24 px-6 border-b border-borderDark/40">
+            <div class="max-w-4xl mx-auto space-y-16">
+                
+                <!-- Header & Narrative Paragraphs -->
+                <div class="space-y-6 reveal">
+                    <div class="inline-flex items-center space-x-2 text-xs font-mono text-accent">
+                        <span>// 02</span>
+                        <span>PROFIL</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-textPrimary">
+                        Tentang
+                    </h2>
+
+                    <div class="space-y-5 text-sm sm:text-base text-textSecondary leading-relaxed pt-2">
+                        <p>
+                            Saya belajar dengan cara membuat sesuatu secara langsung. Saat menemukan bagian yang belum tepat, saya mencoba memahami penyebabnya, memperbaikinya, lalu mengulang proses tersebut. Pendekatan ini membantu saya memahami bukan hanya bagaimana sesuatu dibuat, tetapi juga kenapa sebuah keputusan digunakan.
+                        </p>
+                        <p>
+                            Saat ini saya banyak menggunakan HTML, CSS, JavaScript, Git, GitHub, dan VS Code. Saya juga sedang memperdalam responsive design, UI/UX, serta penggunaan AI sebagai alat bantu dalam proses belajar dan pengembangan project.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Minimal Skill Groups (No percentage bars, no stars) -->
+                <div class="space-y-6 pt-4 reveal">
+                    <h3 class="text-xs font-mono text-textMuted uppercase tracking-wider">
+                        Kemampuan & Alat Kerja
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        
+                        <!-- Group 1 -->
+                        <div class="p-5 rounded-lg border border-borderDark bg-secondaryDark/50 space-y-3">
+                            <h4 class="text-xs font-semibold text-textPrimary tracking-tight border-b border-borderDark pb-2">
+                                Web Development
+                            </h4>
+                            <ul class="text-xs font-mono text-textSecondary space-y-1.5">
+                                <li>HTML</li>
+                                <li>CSS</li>
+                                <li>JavaScript</li>
+                            </ul>
+                        </div>
+
+                        <!-- Group 2 -->
+                        <div class="p-5 rounded-lg border border-borderDark bg-secondaryDark/50 space-y-3">
+                            <h4 class="text-xs font-semibold text-textPrimary tracking-tight border-b border-borderDark pb-2">
+                                Tools
+                            </h4>
+                            <ul class="text-xs font-mono text-textSecondary space-y-1.5">
+                                <li>Git</li>
+                                <li>GitHub</li>
+                                <li>VS Code</li>
+                            </ul>
+                        </div>
+
+                        <!-- Group 3 -->
+                        <div class="p-5 rounded-lg border border-borderDark bg-secondaryDark/50 space-y-3">
+                            <h4 class="text-xs font-semibold text-textPrimary tracking-tight border-b border-borderDark pb-2">
+                                Design
+                            </h4>
+                            <ul class="text-xs font-mono text-textSecondary space-y-1.5">
+                                <li>UI/UX</li>
+                                <li>Responsive Design</li>
+                                <li>Layout</li>
+                                <li>Visual Hierarchy</li>
+                            </ul>
+                        </div>
+
+                        <!-- Group 4 -->
+                        <div class="p-5 rounded-lg border border-borderDark bg-secondaryDark/50 space-y-3">
+                            <h4 class="text-xs font-semibold text-textPrimary tracking-tight border-b border-borderDark pb-2">
+                                Creative Tech
+                            </h4>
+                            <ul class="text-xs font-mono text-textSecondary space-y-1.5">
+                                <li>AI-assisted Development</li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- LEARNING JOURNEY (PERJALANAN BELAJAR) SECTION -->
+        <section id="perjalanan" class="py-24 px-6 border-b border-borderDark/40">
+            <div class="max-w-4xl mx-auto space-y-16">
+                
+                <div class="space-y-3 reveal">
+                    <div class="inline-flex items-center space-x-2 text-xs font-mono text-accent">
+                        <span>// 03</span>
+                        <span>TIMELINE</span>
+                    </div>
+
+                    <h2 class="text-2xl sm:text-3xl font-bold tracking-tight text-textPrimary">
+                        Perjalanan Belajar
+                    </h2>
+                </div>
+
+                <!-- Minimal Vertical Timeline -->
+                <div class="relative border-l border-borderDark ml-3 sm:ml-4 space-y-8 reveal">
+                    
+                    <!-- Item 1 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-accent border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-accent">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Mulai mendalami web development</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-borderDark border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-textMuted">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Membuat project HTML dan CSS</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-borderDark border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-textMuted">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Mulai mempelajari JavaScript</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-borderDark border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-textMuted">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Mengeksplorasi UI/UX dan responsive design</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-borderDark border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-textMuted">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Mulai menggunakan Git & GitHub</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 6 -->
+                    <div class="relative pl-6 sm:pl-8">
+                        <span class="absolute -left-[5px] top-1.5 w-2.5 h-2.5 rounded-full bg-borderDark border-2 border-bgDark"></span>
+                        <div class="space-y-1">
+                            <span class="text-xs font-mono text-textMuted">2026</span>
+                            <p class="text-sm font-medium text-textPrimary">Mengeksplorasi AI-assisted development</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- PERSONAL TOUCH (DI LUAR KODE) -->
+        <section class="py-20 px-6 border-b border-borderDark/40">
+            <div class="max-w-4xl mx-auto reveal">
+                <div class="p-8 rounded-xl border border-borderDark/80 bg-secondaryDark/30 space-y-4">
+                    <h3 class="text-sm font-mono text-textMuted uppercase tracking-wider">
+                        Di Luar Kode
+                    </h3>
+                    <p class="text-sm sm:text-base text-textSecondary leading-relaxed">
+                        Di luar coding, saya menikmati anime dan donghua, menonton film, berlatih silat, dan mengeksplorasi berbagai hal baru.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- CONTACT SECTION -->
+        <section id="kontak" class="py-24 px-6">
+            <div class="max-w-4xl mx-auto space-y-12 reveal">
+                
+                <div class="space-y-4">
+                    <div class="inline-flex items-center space-x-2 text-xs font-mono text-accent">
+                        <span>// 04</span>
+                        <span>KONTAK</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-textPrimary">
+                        Mari berdiskusi.
+                    </h2>
+
+                    <p class="text-sm sm:text-base text-textSecondary max-w-xl">
+                        Terbuka untuk berdiskusi, belajar bersama, atau mengerjakan sesuatu yang menarik.
+                    </p>
+                </div>
+
+                <!-- Contact Links & CTA -->
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-8 pt-4 border-t border-borderDark">
+                    
+                    <div class="flex flex-wrap gap-6 text-sm font-medium">
+                        <!-- Ganti href dengan mailto:emailanda@domain.com -->
+                        <a href="#" class="text-textSecondary hover:text-textPrimary transition-colors flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
+                            <span>Email</span>
+                        </a>
+                        <!-- Ganti href dengan link LinkedIn anda -->
+                        <a href="#" class="text-textSecondary hover:text-textPrimary transition-colors flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-borderDark"></span>
+                            <span>LinkedIn</span>
+                        </a>
+                        <!-- Ganti href dengan link GitHub anda -->
+                        <a href="#" class="text-textSecondary hover:text-textPrimary transition-colors flex items-center space-x-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-borderDark"></span>
+                            <span>GitHub</span>
+                        </a>
+                    </div>
+
+                    <!-- CTA Button -->
+                    <!-- Ganti href dengan link kontak/email anda -->
+                    <a href="#" class="inline-flex items-center justify-center text-xs font-medium px-6 py-3.5 rounded-md bg-accent text-bgDark hover:bg-white transition-colors duration-200">
+                        Hubungi Saya
+                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                        </svg>
+                    </a>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="border-t border-borderDark py-12 px-6 bg-secondaryDark/50 text-xs">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            
+            <div class="space-y-1">
+                <p class="font-semibold text-textPrimary">Rayyan Amayuri</p>
+                <p class="text-textMuted font-mono text-[11px]">PPLG Student · Web Developer · UI/UX Learner</p>
+            </div>
+
+            <div class="flex items-center space-x-6 text-textSecondary font-medium">
+                <!-- Placeholder Link Kontak Footer -->
+                <a href="#" class="hover:text-textPrimary transition-colors">Email</a>
+                <a href="#" class="hover:text-textPrimary transition-colors">LinkedIn</a>
+                <a href="#" class="hover:text-textPrimary transition-colors">GitHub</a>
+            </div>
+
+            <div class="space-y-1 text-right text-textMuted font-mono text-[11px]">
+                <p>© 2026 Rayyan Amayuri.</p>
+                <p>Built with HTML, Tailwind CSS &amp; JavaScript.</p>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- INTERACTION LOGIC & JAVASCRIPT -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Mobile Menu Toggle Logic
+            const menuToggleBtn = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMenu() {
+                const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
+                menuToggleBtn.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('hidden');
+            }
+
+            if (menuToggleBtn && mobileMenu) {
+                menuToggleBtn.addEventListener('click', toggleMenu);
+                
+                // Close menu when link is clicked
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            toggleMenu();
+                        }
+                    });
+                });
+            }
+
+
+            // 2. Navbar Scroll Style Transition
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 40) {
+                    navbar.classList.add('shadow-lg', 'bg-bgDark/95');
+                } else {
+                    navbar.classList.remove('shadow-lg', 'bg-bgDark/95');
+                }
+            }, { passive: true });
+
+
+            // 3. Scroll Reveal Animation (IntersectionObserver)
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -50px 0px',
+                threshold: 0.1
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Reveal once
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+        });
+    </script>
+</body>
+</html>
